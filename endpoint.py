@@ -2,11 +2,14 @@ from flask import *
 import json
 import datetime
 from datetime import date
+# import the required directories
+
 current_utc_time = str(datetime.datetime.utcnow())
 day = date.today()
 weekday = day.weekday()
 today = day.strftime('%A')
 
+# initialize flask app
 app = Flask(__name__)
 
 
@@ -22,9 +25,11 @@ def request_page():
         'github_repo_url': '',
         'status_code': 200
     }
+    # convert the data to a json format
     json_dump = json.dumps(user_details)
     return json_dump
 
 
+# server would run on your local host 5000, you can change the port any choice you want.
 if __name__ == '__main__':
     app.run(port=5000)
