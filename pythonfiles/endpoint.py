@@ -23,12 +23,13 @@ app = Flask(__name__)
 
 @app.route('/api', methods=['GET'])
 def request_page():
-    user_query = str(request.args.get('slack_name', default="Enter query"))
+    user_query = request.args.get('slack_name')
+    track = request.args.get('track')
     user_details = {
-        'slack_name': f'{user_query}',
+        'slack_name': user_query,
         'current_day': str(today_date()),
         'utc_time': str(utc_time()),
-        'track': 'backend',
+        'track': track,
         'github_file_url': 'https://github.com/Daezee/HNG-stage-1/edit/master/pythonfiles/endpoint.py',
         'github_repo_url': 'https://github.com/Daezee/HNG-stage-1.git',
         'status_code': 200
