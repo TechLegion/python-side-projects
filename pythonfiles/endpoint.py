@@ -4,25 +4,33 @@ import datetime
 from datetime import date
 # import the required directories
 
-current_utc_time = str(datetime.datetime.utcnow())
 day = date.today()
-weekday = day.weekday()
-today = day.strftime('%A')
+
+
+def today_date():
+    return day.strftime('%A')
+
+
+def utc_time():
+    return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+utc_time()
 
 # initialize flask app
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def request_page():
     user_query = str(request.args.get('slack_name', default="Enter query"))
     user_details = {
         'slack_name': f'{user_query}',
-        'current_day': today,
-        'utc_time': current_utc_time,
+        'current_day': str(today_date()),
+        'utc_time': str(utc_time()),
         'track': 'backend',
-        'github_file_url': '',
-        'github_repo_url': '',
+        'github_file_url': 'https://github.com/Daezee/HNG-stage-1/edit/master/pythonfiles/endpoint.py',
+        'github_repo_url': 'https://github.com/Daezee/HNG-stage-1.git',
         'status_code': 200
     }
     # convert the data to a json format
@@ -32,4 +40,4 @@ def request_page():
 
 # server would run on your local host 5000, you can change the port any choice you want.
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(debug=False, host='0.0.0.0')
