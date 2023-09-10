@@ -1,5 +1,5 @@
 from flask import *
-import json
+from flask import jsonify
 import datetime
 from datetime import date
 # import the required directories
@@ -35,8 +35,8 @@ def request_page():
         'status_code': 200
     }
     # convert the data to a json format
-    json_dump = json.dumps(user_details)
-    return json_dump
+
+    return jsonify(user_details)
 
 
 # server would run on your local host 5000, you can change the port any choice you want.
